@@ -13,27 +13,27 @@
   .toolbar select { padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
   .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { width: 100%; border-collapse: collapse; background: #fff; table-layout: fixed; min-width: 720px; }
-  thead th { background: #eceef1; cursor: pointer; text-align: left; padding: 3px 4px; font-size: 11px; border-bottom: 2px solid #ccc; user-select: none; white-space: nowrap; overflow: visible; }
-  td { padding: 8px 12px; font-size: 14px; border-bottom: 1px solid #eee; vertical-align: top; word-wrap: break-word; overflow-wrap: break-word; }
+  thead th { background: #eceef1; cursor: pointer; text-align: left; padding: 6px 8px; font-size: 12px; border-bottom: 2px solid #ccc; user-select: none; white-space: nowrap; overflow: visible; }
+  td { padding: 8px 8px; font-size: 14px; border-bottom: 1px solid #eee; vertical-align: top; word-wrap: normal; overflow-wrap: break-word; }
   tr.movie:hover { background: #f0f6ff; }
   tr.group-row { background: #f7f8fa; cursor: pointer; }
   tr.group-row:hover { background: #eef1f5; }
   tr.sub { background: #fbfcfe; }
   .arrow { display: inline-block; width: 14px; color: #667; }
   .title-link { color: #0645ad; }
-  .tt { font-family: monospace; color: #555; }
+  .tt { font-family: monospace; color: #555; white-space: nowrap; }
   a { color: #0645ad; text-decoration: none; }
   a:hover { text-decoration: underline; }
   .plot { color: #444; max-width: 1400px; }
-  .type { font-size: 13px; padding: 2px 7px; border-radius: 10px; background: #e3e8f0; color: #333; white-space: nowrap; }
+  .plot img.poster { float: left; width: 68px; max-height: 102px; object-fit: cover; border-radius: 4px; margin: 0 12px 6px 0; }
+  .type { font-size: 12px; padding: 2px 6px; border-radius: 10px; background: #e3e8f0; color: #333; white-space: nowrap; }
   .type.series { background: #e6f4ea; color: #1a7f37; }
   .type.multifile { background: #fff3cd; color: #856404; }
   .count { color: #888; padding: 10px 20px; }
-  tbody td:first-child { max-width: 52px; word-wrap: break-word; overflow-wrap: break-word; }
-  .file { font-family: monospace; font-size: 12px; color: #555; }
+  .file { font-family: monospace; font-size: 12px; color: #555; overflow-wrap: anywhere; }
   @media (max-width: 720px) {
     body { font-size: 13px; }
-    td, thead th { font-size: 13px; padding: 6px 8px; }
+    td, thead th { font-size: 12px; padding: 6px 6px; }
     .plot { font-size: 13px; }
     .type { font-size: 11px; padding: 1px 5px; }
   }
@@ -45,17 +45,16 @@
   #pw-gate button { padding: 10px 20px; font-size: 16px; margin-left: 8px; background: #1f2430; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
   #pw-gate .err { color: #c00; margin-top: 10px; font-size: 14px; min-height: 18px; }
   #app { display: none; }
-  /* column widths: squeeze title/genre/actors/location so plot gets more room */
-  thead th:nth-child(1), tbody td:nth-child(1) { width: 36px; }    /* Poster */
-  thead th:nth-child(2), tbody td:nth-child(2) { width: 72px; }    /* Title */
-  thead th:nth-child(3), tbody td:nth-child(3) { width: 32px; }    /* Year */
-  thead th:nth-child(4), tbody td:nth-child(4) { width: 52px; }    /* Type */
-  thead th:nth-child(5), tbody td:nth-child(5) { width: 64px; }    /* Location */
-  thead th:nth-child(6), tbody td:nth-child(6) { width: 56px; }    /* Genre */
-  thead th:nth-child(7), tbody td:nth-child(7) { width: 64px; }    /* Actors */
-  thead th:nth-child(8), tbody td:nth-child(8) { width: 34px; }    /* Rating */
-  thead th:nth-child(9), tbody td:nth-child(9) { width: 56px; }    /* IMDb */
-  thead th:nth-child(10), tbody td:nth-child(10) { width: auto; min-width: 400px; }  /* Plot */
+  /* column widths: 8 compact columns + wide Plot column with poster thumbnail */
+  thead th:nth-child(1), tbody td:nth-child(1) { width: 135px; }   /* Title */
+  thead th:nth-child(2), tbody td:nth-child(2) { width: 46px; white-space: nowrap; }    /* Year */
+  thead th:nth-child(3), tbody td:nth-child(3) { width: 72px; white-space: nowrap; }    /* Type */
+  thead th:nth-child(4), tbody td:nth-child(4) { width: 92px; }    /* Location */
+  thead th:nth-child(5), tbody td:nth-child(5) { width: 85px; }    /* Genre */
+  thead th:nth-child(6), tbody td:nth-child(6) { width: 110px; }   /* Actors */
+  thead th:nth-child(7), tbody td:nth-child(7) { width: 48px; white-space: nowrap; }    /* Rating */
+  thead th:nth-child(8), tbody td:nth-child(8) { width: 82px; white-space: nowrap; }    /* IMDb */
+  thead th:nth-child(9), tbody td:nth-child(9) { width: auto; min-width: 420px; }  /* Plot */
 </style>
 </head>
 <body>
@@ -90,7 +89,6 @@
 <table>
   <thead>
     <tr>
-      <th data-k="poster">Poster</th>
       <th data-k="title">Title</th>
       <th data-k="year">Year</th>
       <th data-k="type">Type</th>
@@ -132,11 +130,11 @@ let sortCols = [{key:'title', dir:1}];
 function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function se(v) { return (v == null ? '' : String(v)).toLowerCase(); }
 function ttLink(tt) { return tt ? `<a class="tt" target="_blank" href="https://www.imdb.com/title/${tt}/">${tt}</a>` : ''; }
-function posterCell(u) { return u ? `<img src="${esc(u)}" width="45" loading="lazy" onerror="this.style.display='none'" style="display:block;border-radius:3px;max-height:68px;object-fit:cover;">` : ''; }
+function posterCell(u) { return u ? `<img class="poster" src="${esc(u)}" width="68" loading="lazy" onerror="this.style.display='none'">` : ''; }
 
 function fileRow(fn) {
   return `<tr class="sub">
-    <td></td><td style="padding-left:34px" class="file">${esc(fn)}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td style="padding-left:24px" class="file" colspan="9">${esc(fn)}</td>
   </tr>`;
 }
 
@@ -146,7 +144,6 @@ function movieRow(m) {
   const arrow = isMulti ? `<span class="arrow">${open ? '▼' : '▶'}</span> ` : '';
   const cnt = isMulti ? ` <span style="color:#999">(${m.files.length} files)</span>` : '';
   return `<tr class="${isMulti ? 'group-row' : 'movie'}" data-key="${isMulti ? 'm:'+m.tt : ''}">
-    <td>${posterCell(m.poster)}</td>
     <td>${arrow}<strong>${esc(m.title)}</strong>${cnt}</td>
     <td>${esc(m.year)}</td>
     <td><span class="type ${isMulti ? 'multifile' : ''}">${isMulti ? 'Multi-file' : 'Movie'}</span></td>
@@ -155,14 +152,14 @@ function movieRow(m) {
     <td>${esc(m.actors)}</td>
     <td>${esc(m.rating)}</td>
     <td>${ttLink(m.tt)}</td>
-    <td class="plot">${esc(m.plot)}</td>
+    <td class="plot">${posterCell(m.poster)}${esc(m.plot)}</td>
   </tr>`;
 }
 
 function episodeRow(sr, e) {
   const se2 = (e.season != null && e.season !== '') ? `S${String(e.season).padStart(2,'0')}E${String(e.episode).padStart(2,'0')}` : '';
   return `<tr class="sub">
-    <td></td><td style="padding-left:34px">${se2} - ${esc(e.title)}</td><td></td><td><span class="type">Episode</span></td><td>Movies_1 / IMDB_series</td><td></td><td></td><td>${esc(e.rating)}</td><td>${ttLink(e.tt)}</td><td class="plot">${esc(e.plot)}</td>
+    <td style="padding-left:24px">${se2} - ${esc(e.title)}</td><td></td><td><span class="type">Episode</span></td><td>Movies_1 / IMDB_series</td><td></td><td></td><td>${esc(e.rating)}</td><td>${ttLink(e.tt)}</td><td class="plot">${esc(e.plot)}</td>
   </tr>`;
 }
 
@@ -170,7 +167,6 @@ function seriesRow(sr) {
   const open = expanded.has(sr.title);
   const n = sr.episodes.length;
   return `<tr class="group-row" data-key="${esc(sr.title)}">
-    <td>${posterCell(sr.poster)}</td>
     <td><span class="arrow">${open ? '▼' : '▶'}</span> <span class="title-link">${esc(sr.title)}</span> <span style="color:#999">(${n} eps)</span></td>
     <td>${esc(sr.year)}</td>
     <td><span class="type series">Series</span></td>
@@ -179,7 +175,7 @@ function seriesRow(sr) {
     <td>${esc(sr.actors)}</td>
     <td></td>
     <td>${ttLink(sr.tt)}</td>
-    <td class="plot"></td>
+    <td class="plot">${posterCell(sr.poster)}</td>
   </tr>`;
 }
 
