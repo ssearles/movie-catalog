@@ -25,7 +25,7 @@
   a { color: #0645ad; text-decoration: none; }
   a:hover { text-decoration: underline; }
   .plot { color: #444; max-width: 1400px; }
-  .plot img.poster { float: left; width: 68px; max-height: 102px; object-fit: cover; border-radius: 4px; margin: 0 12px 6px 0; }
+  .plot img.poster { float: left; width: 136px; max-height: 204px; object-fit: cover; border-radius: 4px; margin: 0 14px 8px 0; }
   .type { font-size: 12px; padding: 2px 6px; border-radius: 10px; background: #e3e8f0; color: #333; white-space: nowrap; }
   .type.series { background: #e6f4ea; color: #1a7f37; }
   .type.multifile { background: #fff3cd; color: #856404; }
@@ -130,7 +130,7 @@ let sortCols = [{key:'title', dir:1}];
 function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function se(v) { return (v == null ? '' : String(v)).toLowerCase(); }
 function ttLink(tt) { return tt ? `<a class="tt" target="_blank" href="https://www.imdb.com/title/${tt}/">${tt}</a>` : ''; }
-function posterCell(u) { return u ? `<img class="poster" src="${esc(u)}" width="68" loading="lazy" onerror="this.style.display='none'">` : ''; }
+function posterCell(u) { return u ? `<img class="poster" src="${esc(u)}" width="136" loading="lazy" onerror="this.style.display='none'">` : ''; }
 
 function fileRow(fn) {
   return `<tr class="sub">
