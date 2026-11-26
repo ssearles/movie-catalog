@@ -14,7 +14,8 @@
   .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { width: 100%; border-collapse: collapse; background: #fff; table-layout: fixed; min-width: 720px; }
   thead th { background: #eceef1; cursor: pointer; text-align: left; padding: 6px 8px; font-size: 12px; border-bottom: 2px solid #ccc; user-select: none; white-space: nowrap; overflow: visible; }
-  td { padding: 8px 8px; font-size: 14px; border-bottom: 1px solid #eee; vertical-align: top; word-wrap: normal; overflow-wrap: break-word; }
+  td { padding: 8px 8px; font-size: 14px; border-bottom: 1px solid #eee; vertical-align: top; word-wrap: normal; overflow-wrap: break-word; box-sizing: border-box; }
+  thead th { box-sizing: border-box; }
   tr.movie:hover { background: #f0f6ff; }
   tr.group-row { background: #f7f8fa; cursor: pointer; }
   tr.group-row:hover { background: #eef1f5; }
@@ -24,7 +25,7 @@
   .tt { font-family: monospace; color: #555; white-space: nowrap; }
   a { color: #0645ad; text-decoration: none; }
   a:hover { text-decoration: underline; }
-  .plot { color: #444; max-width: 1400px; }
+  .plot { color: #444; }
   .plot img.poster { float: left; width: 136px; max-height: 204px; object-fit: cover; border-radius: 4px; margin: 0 14px 8px 0; }
   .type { font-size: 12px; padding: 2px 6px; border-radius: 10px; background: #e3e8f0; color: #333; white-space: nowrap; }
   .type.series { background: #e6f4ea; color: #1a7f37; }
@@ -46,15 +47,15 @@
   #pw-gate .err { color: #c00; margin-top: 10px; font-size: 14px; min-height: 18px; }
   #app { display: none; }
   /* column widths: 8 compact columns + wide Plot column with poster thumbnail */
-  thead th:nth-child(1), tbody td:nth-child(1) { width: 135px; }   /* Title */
-  thead th:nth-child(2), tbody td:nth-child(2) { width: 46px; white-space: nowrap; }    /* Year */
-  thead th:nth-child(3), tbody td:nth-child(3) { width: 72px; white-space: nowrap; }    /* Type */
-  thead th:nth-child(4), tbody td:nth-child(4) { width: 92px; }    /* Location */
-  thead th:nth-child(5), tbody td:nth-child(5) { width: 85px; }    /* Genre */
-  thead th:nth-child(6), tbody td:nth-child(6) { width: 110px; }   /* Actors */
-  thead th:nth-child(7), tbody td:nth-child(7) { width: 48px; white-space: nowrap; }    /* Rating */
-  thead th:nth-child(8), tbody td:nth-child(8) { width: 82px; white-space: nowrap; }    /* IMDb */
-  thead th:nth-child(9), tbody td:nth-child(9) { width: auto; min-width: 420px; }  /* Plot */
+  thead th:nth-child(1), tbody td:nth-child(1) { width: 10%; }   /* Title */
+  thead th:nth-child(2), tbody td:nth-child(2) { width: 4%; white-space: nowrap; }    /* Year */
+  thead th:nth-child(3), tbody td:nth-child(3) { width: 5%; white-space: nowrap; }    /* Type */
+  thead th:nth-child(4), tbody td:nth-child(4) { width: 7%; }    /* Location */
+  thead th:nth-child(5), tbody td:nth-child(5) { width: 6%; }    /* Genre */
+  thead th:nth-child(6), tbody td:nth-child(6) { width: 8%; }   /* Actors */
+  thead th:nth-child(7), tbody td:nth-child(7) { width: 4%; white-space: nowrap; }    /* Rating */
+  thead th:nth-child(8), tbody td:nth-child(8) { width: 6%; white-space: nowrap; }    /* IMDb */
+  thead th:nth-child(9), tbody td:nth-child(9) { width: 50%; }  /* Plot */
 </style>
 </head>
 <body>
